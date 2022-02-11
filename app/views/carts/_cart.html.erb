@@ -11,12 +11,19 @@
       <tr>
         <th colspan="2">Total:</th>
         <!--I know that the following is supposed to be a td in the sample code, but it is a th in the image, and that looks better so I made it a th-->
-        <th class="price"><%= number_to_currency(@cart.total_price) %></th>
+        <th class="price"><%= number_to_currency(cart.total_price) %></th>
       </tr>
     </tfoot>
   </table>
-  <%= button_to 'Empty cart', cart,
-  method: :delete,
-  data: { confirm: 'Are you sure' } %>
 
+  <div class="actions">
+    <%= button_to 'Empty cart', cart,
+    method: :delete,
+    data: { confirm: 'Are you sure?' } %>
+
+
+    <%= button_to 'Checkout', new_order_path,
+    method: :get,
+    class: "checkout"%>
+  </div>
 </article>
