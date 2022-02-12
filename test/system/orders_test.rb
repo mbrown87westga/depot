@@ -29,6 +29,8 @@ class OrdersTest < ApplicationSystemTestCase
 
     visit store_index_url
 
+    visit store_index_url
+
     click_on 'Add to Cart', match: :first
 
     click_on 'Checkout'
@@ -39,12 +41,13 @@ class OrdersTest < ApplicationSystemTestCase
 
     assert_no_selector "#order_routing_number"
 
-    select 'Check', from: 'Pay type'
+    select 'Check', from: 'Pay with'
+
 
     assert_selector "#order_routing_number"
 
     fill_in "Routing #", with: "123456"
-    fill_in "Account #", with: "987654"
+    fill_in 'order_account_number', with: "987654"
 
     perform_enqueued_jobs do
       click_button "Place Order"
