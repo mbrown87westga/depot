@@ -9,7 +9,7 @@ class LineItemsTest < ApplicationSystemTestCase
     visit line_items_url
     assert_selector "h1", text: "Line Items"
   end
-#
+# commented out because I was given permission to comment out these tests if they were not mentioned in the text
 #  test "creating a Line item" do
 #    visit line_items_url
 #    click_on "New Line Item"
