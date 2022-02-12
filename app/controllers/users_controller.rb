@@ -50,21 +50,24 @@ class UsersController < ApplicationController
   # DELETE /users/1 or /users/1.json
   def destroy
     @user.destroy
-
     respond_to do |format|
-      format.html { redirect_to users_url, notice: "User was successfully destroyed." }
+      format.html { redirect_to users_url, notice: '"User #{@user.name} deleted"' }
       format.json { head :no_content }
     end
   end
 
-  private
-  # Use callbacks to share common setup or constraints between actions.
-  def set_user
-    @user = User.find(params[:id])
+  rescue_from 'User::Error' do |exception|
+    redirect_to users_url, notice: exception.message
   end
 
-  # Only allow a list of trusted parameters through.
-  def user_params
-    params.require(:user).permit(:name, :password, :password_confirmation)
+    private
+    # Use callbacks to share common setup or constraints between actions.
+    def set_user
+      @user = User.find(params[:id])
+    end
+
+    # Only allow a list of trusted parameters through.
+    def user_params
+      params.require(:user).permit(:name, :password, :password_confirmation)
+    end
   end
-end
